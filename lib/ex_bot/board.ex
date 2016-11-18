@@ -9,7 +9,7 @@ defmodule ExBot.Board do
   @enforce_keys [:gpios, :i2c, :socket, :board]
   defstruct [:gpios, :i2c, :socket, :board]
 
-  alias Sensors.{I2CBus, Gpio}
+  alias ExBot.{I2CBus, Gpio}
 
   @buzz_pin   17
   @laser_pin  23

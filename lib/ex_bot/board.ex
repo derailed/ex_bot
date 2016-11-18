@@ -47,7 +47,7 @@ defmodule ExBot.Board do
     # socket |> register(:mic)
     # socket |> register(:photo)
 
-    board = %Sensors.Board{
+    board = %ExBot.Board{
       gpios:  %{laser: laser, buzz: buzz, merc: merc},
       i2c:    bus,
       socket: socket,

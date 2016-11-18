@@ -78,15 +78,15 @@ defmodule ExBot.Board do
   end
 
   def run(board) do
-    val = board.bus |> I2CBus.read(@photo_chan)
+    val = board.i2c |> I2CBus.read(@photo_chan)
     # IO.puts "Laser: #{val}"
     board.socket |> send(:laser, val)
 
-    val = board.bus |> I2CBus.read(@temp_chan)
+    val = board.i2c |> I2CBus.read(@temp_chan)
     # IO.puts "Temp: #{val}"
     board.socket |> send(:temp, val)
 
-    val = board.bus |> I2CBus.read(@mic_chan)
+    val = board.i2c |> I2CBus.read(@mic_chan)
     # IO.puts "Mic: #{val}"
     board.socket |> send(:mic, val)
 

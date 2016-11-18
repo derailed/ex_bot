@@ -1,4 +1,4 @@
-defmodule Sensors.I2CBus do
+defmodule ExBot.I2CBus do
   @moduledoc """
   I2CBus representation
   """

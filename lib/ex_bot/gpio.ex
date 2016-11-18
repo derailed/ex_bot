@@ -1,4 +1,4 @@
-defmodule Sensors.Gpio do
+defmodule ExBot.Gpio do
   @moduledoc """
   Manages GPIO devices
   """

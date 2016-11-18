@@ -2,8 +2,12 @@ defmodule ExBot.Board do
   @moduledoc """
   Virtual representation of an IOT installation
   """
-  @enforce_keys [:gpios, :bus, :socket, :board]
-  defstruct [:gpios, :bus, :socket, :board]
+
+  # BOZO !! Don't pass the socket here. Let the board
+  # tell you about event. All add API to add pins and bus
+
+  @enforce_keys [:gpios, :i2c, :socket, :board]
+  defstruct [:gpios, :i2c, :socket, :board]
 
   alias Sensors.{I2CBus, Gpio}
 
@@ -45,7 +49,7 @@ defmodule ExBot.Board do
 
     board = %Sensors.Board{
       gpios:  %{laser: laser, buzz: buzz, merc: merc},
-      bus:    bus,
+      i2c:    bus,
       socket: socket,
       board:  self
     }

@@ -33,7 +33,7 @@ defmodule ExBot.Board do
     IO.inspect Application.fetch_env(:ex_bot, :fred)
 
     bus = case Application.fetch_env(:ex_bot, :i2c) do
-      {:ok, conf} -> I2CBus.init(conf.channel, conf.address)
+      {:ok, conf} -> I2CBus.init(conf[:channel], conf[:address])
       :error      -> nil
     end
 

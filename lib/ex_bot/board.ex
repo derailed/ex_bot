@@ -43,13 +43,13 @@ defmodule ExBot.Board do
   end
 
   def toggle(board, name, state) do
-    d = board.locate(:gpio, name)
+    d = board |> locate(:gpio, name)
     d.device |> Gpio.toggle(state)
     board
   end
 
   def read(board, :i2c, name) do
-    dev = boad.locate(:i2c, name)
+    dev = board |> locate(:i2c, name)
     board.i2c |> I2CBus.read(dev.channel)
   end
   def read(board, :gpio, name) do

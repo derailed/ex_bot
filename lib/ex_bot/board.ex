@@ -10,7 +10,10 @@ defmodule ExBot.Board do
   def init do
     bus_config = Application.fetch_env(:ex_bot, :i2c)
     {i2c, i2c_devs} = case bus_config do
-      {:ok, c} -> { I2CBus.init(c[:channel], c[:address]), c[:bus] }
+      {:ok, c} -> {
+        I2CBus.init(c[:channel], c[:address]),
+        c[:bus]
+      }
       :error   -> { nil, [] }
     end
 

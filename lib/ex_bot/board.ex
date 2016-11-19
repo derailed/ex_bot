@@ -34,7 +34,7 @@ defmodule ExBot.Board do
       {:ok, conf} -> I2CBus.init(conf.channel, conf.address)
       :error      -> nil
     end
-    board.bus = bus
+    board.i2c = bus
 
     # {:ok, bus} = I2CBut.init(chan, address)
     # board.i2c = bus

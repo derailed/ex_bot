@@ -28,13 +28,10 @@ defmodule ExBot.Board do
   end
 
   def init do
-    board = %ExBot.Board{}
-
     bus = case ic2Application.fetch_env(:ex_bot, :i2c) do
       {:ok, conf} -> I2CBus.init(conf.channel, conf.address)
       :error      -> nil
     end
-    board.i2c = bus
 
     # {:ok, bus} = I2CBut.init(chan, address)
     # board.i2c = bus
@@ -44,7 +41,10 @@ defmodule ExBot.Board do
     #    gpio
     # end
     # board.gpios = gpios
-    board
+    board = %ExBot.Board{
+      i2c:    bus,
+      board:  self
+    }
   end
 
   @doc """

@@ -51,7 +51,9 @@ defmodule ExBot.Board do
   end
 
   def read(board, :i2c, name) do
-    dev = board |> locate(:i2c, name)
+    dev = board
+    |> locate(:i2c, name)
+    |> IO.inspect
     board.i2c |> I2CBus.read(dev[:channel])
   end
   def read(board, :gpio, name) do

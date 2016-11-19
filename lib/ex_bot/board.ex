@@ -28,6 +28,9 @@ defmodule ExBot.Board do
   end
 
   def init do
+    IO.puts "Config"
+    IO.inspect Application.fetch_env(:ex_bot, :i2c)
+
     bus = case Application.fetch_env(:ex_bot, :i2c) do
       {:ok, conf} -> I2CBus.init(conf.channel, conf.address)
       :error      -> nil
@@ -41,7 +44,7 @@ defmodule ExBot.Board do
     #    gpio
     # end
     # board.gpios = gpios
-    board = %ExBot.Board{
+    %ExBot.Board{
       i2c:    bus,
       board:  self
     }

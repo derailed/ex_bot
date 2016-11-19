@@ -24,7 +24,7 @@ defmodule ExBot.Board do
     {:ok, gpios} = case Application.fetch_env(:ex_bot, :gpios) do
       {:ok, devices} ->
         { :ok,
-          for d <- gpios_devs do
+          for d <- devices do
             case Gpio.init(d[:pin], d[:direction]) do
               {:ok, dev} -> [device: dev, config: d]
               :error     -> raise "Unable to initialize pin `#{d[:pin]}"
@@ -43,18 +43,18 @@ defmodule ExBot.Board do
   end
 
   def toggle(board, name, state) do
-    board.locate(:gpio, name)
-    |> Gpio.toggle(state)
+    d = board.locate(:gpio, name)
+    d.device |> Gpio.toggle(state)
     board
   end
 
   def read(board, :i2c, name) do
-    {:ok, dev} = boad.locate(:i2c, name)
-    board.i2c |> I2CBus.read(dev)
+    dev = boad.locate(:i2c, name)
+    board.i2c |> I2CBus.read(dev.channel)
   end
   def read(board, :gpio, name) do
-    {:ok, dev} = board |> locate(:gpio, name)
-    dev |> Gpio.read
+    dev = board |> locate(:gpio, name)
+    dev.device |> Gpio.read
   end
 
   defp locate(board, :gpio, name) do

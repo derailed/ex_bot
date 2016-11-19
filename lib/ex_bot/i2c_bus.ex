@@ -15,7 +15,7 @@ defmodule ExBot.I2CBus do
   """
   def read(i2c, channel) do
     {channel_value, _} = Integer.parse("#{channel + 40}", 16)
-    i2c |> IO.inspect |> I2c.write(<<channel_value>>)
+    i2c |> I2c.write(<<channel_value>>)
     i2c |> I2c.read(1)
     <<value>> = i2c |> I2c.read(1)
     value

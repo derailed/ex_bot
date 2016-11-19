@@ -3,23 +3,16 @@ defmodule ExBot.Board do
   Virtual representation of an IOT installation
   """
 
-  defstruct [:gpios, :i2c, :i2c_bus, :socket, :board]
+  defstruct [:gpios, :i2c, :i2c_bus, :socket, :conn]
 
   alias ExBot.{I2CBus, Gpio}
 
   def init do
-    IO.puts "Config"
-    IO.inspect Application.fetch_env(:ex_bot, :i2c)
-    IO.inspect Application.fetch_env(:ex_bot, :fred)
-
     bus_config = Application.fetch_env(:ex_bot, :i2c)
     {i2c, i2c_devs} = case bus_config do
       {:ok, c} -> { I2CBus.init(c[:channel], c[:address]), c[:bus] }
       :error   -> { nil, [] }
     end
-    IO.puts "Ic2s"
-    IO.inspect i2c
-    IO.inspect i2c_devs
 
     {:ok, gpios} = case Application.fetch_env(:ex_bot, :gpios) do
       {:ok, devices} ->
@@ -38,7 +31,7 @@ defmodule ExBot.Board do
       i2c:     i2c,
       i2c_bus: i2c_devs,
       gpios:   gpios,
-      board:   self
+      conn:    self
     }
   end
 
@@ -54,7 +47,7 @@ defmodule ExBot.Board do
     dev = board
     |> locate(:i2c, name)
     |> IO.inspect
-    board.i2c |> I2CBus.read(dev[:channel])
+    board.conn.i2c |> I2CBus.read(dev[:channel])
   end
   def read(board, :gpio, name) do
     dev = board |> locate(:gpio, name)

@@ -6,7 +6,7 @@ defmodule ExBot.Board do
   # BOZO !! Don't pass the socket here. Let the board
   # tell you about event. All add API to add pins and bus
 
-  @enforce_keys [:gpios, :i2c, :socket, :board]
+  # @enforce_keys [:gpios, :i2c, :socket, :board]
   defstruct [:gpios, :i2c, :socket, :board]
 
   alias ExBot.{I2CBus, Gpio}

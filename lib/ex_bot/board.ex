@@ -27,11 +27,12 @@ defmodule ExBot.Board do
     buzz |> Gpio.toggle(:off)
   end
 
-  def configure do
+  def init do
     board = %ExBot.Board{}
 
-    i2c = case ic2Application.fetch_env(:ex_bot, :i2c) do
-      {:ok, conf} -> I2CBus.Init(conf.channel, conf.address)
+    case ic2Application.fetch_env(:ex_bot, :i2c) do
+      {:ok, conf} ->
+        board.i2c = I2CBus.init(conf.channel, conf.address)
       :error      -> nil
     end
 

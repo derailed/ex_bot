@@ -7,11 +7,6 @@ defmodule ExBot.Board do
 
   alias ExBot.{I2CBus, Gpio}
 
-  def buzz() do
-    {:ok, buzz} = Gpio.init(@buzz_pin, :output)
-    buzz |> Gpio.toggle(:off)
-  end
-
   def init do
     IO.puts "Config"
     IO.inspect Application.fetch_env(:ex_bot, :i2c)
@@ -20,7 +15,7 @@ defmodule ExBot.Board do
     bus_config = Application.fetch_env(:ex_bot, :i2c)
     {i2c, i2c_devs} = case bus_config do
       {:ok, c} -> { I2CBus.init(c[:channel], c[:address]), c[:bus] }
-      error    -> { nil, [] }
+      :error   -> { nil, [] }
     end
     IO.puts "Ic2s"
     IO.inspect i2c

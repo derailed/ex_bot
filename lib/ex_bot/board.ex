@@ -30,11 +30,11 @@ defmodule ExBot.Board do
   def init do
     board = %ExBot.Board{}
 
-    case ic2Application.fetch_env(:ex_bot, :i2c) do
-      {:ok, conf} ->
-        board.i2c = I2CBus.init(conf.channel, conf.address)
+    bus = case ic2Application.fetch_env(:ex_bot, :i2c) do
+      {:ok, conf} -> I2CBus.init(conf.channel, conf.address)
       :error      -> nil
     end
+    board.bus = bus
 
     # {:ok, bus} = I2CBut.init(chan, address)
     # board.i2c = bus

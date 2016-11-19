@@ -29,7 +29,7 @@ defmodule ExBot.Board do
 
   def init do
     IO.puts "Config"
-    IO.inspect Application.fetch_env(:ex_bot, :i2c)
+    IO.inspect Application.fetch_env!(:ex_bot, :i2c)
 
     bus = case Application.fetch_env(:ex_bot, :i2c) do
       {:ok, conf} -> I2CBus.init(conf.channel, conf.address)

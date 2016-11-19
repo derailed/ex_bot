@@ -63,7 +63,7 @@ defmodule ExBot.Board do
 
   defp locate(board, :gpio, name) do
     board.gpios
-    |> Enum.filter(&(&1[:config][:name] == name))
+    |> Enum.filter(&(&1[:name] == name))
     |> List.first
   end
   defp locate(board, :i2c, name) do

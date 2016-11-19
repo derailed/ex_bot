@@ -12,7 +12,7 @@ defmodule ExBot.Board do
     {i2c, i2c_devs} = case bus_config do
       {:ok, c} ->
         {:ok, pid} = I2CBus.init(c[:channel], c[:address])
-        {pid, c[:bus]}
+        {pid, c[:devices]}
       :error   -> { nil, [] }
     end
 

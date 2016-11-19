@@ -29,7 +29,7 @@ defmodule ExBot.Board do
     {:ok, gpios} = case Application.fetch_env(:ex_bot, :gpios) do
       {:ok, devices} ->
         { :ok,
-          for d <- gpios_devs, do
+          for d <- gpios_devs do
             case Gpio.init(d[:pin], d[:direction]) do
               {:ok, dev} -> [device: dev, config: d]
               :error     -> raise "Unable to initialize pin `#{d[:pin]}"

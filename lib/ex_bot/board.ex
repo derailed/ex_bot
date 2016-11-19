@@ -27,6 +27,25 @@ defmodule ExBot.Board do
     buzz |> Gpio.toggle(:off)
   end
 
+  def configure do
+    board = %ExBot.Board{}
+
+    i2c = case ic2Application.fetch_env(:ex_bot, :i2c) do
+      {:ok, conf} -> I2CBus.Init(conf.channel, conf.address)
+      :error      -> nil
+    end
+
+    # {:ok, bus} = I2CBut.init(chan, address)
+    # board.i2c = bus
+
+    # gpios = for p <- gpios, into: [] do
+    #    {:ok, gpio} = Gpio.init(p)
+    #    gpio
+    # end
+    # board.gpios = gpios
+    board
+  end
+
   @doc """
   Build software representation for installed hardware
   """

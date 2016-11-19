@@ -28,7 +28,7 @@ defmodule ExBot.Board do
   end
 
   def init do
-    bus = case ic2Application.fetch_env(:ex_bot, :i2c) do
+    bus = case Application.fetch_env(:ex_bot, :i2c) do
       {:ok, conf} -> I2CBus.init(conf.channel, conf.address)
       :error      -> nil
     end

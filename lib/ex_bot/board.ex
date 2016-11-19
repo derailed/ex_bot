@@ -43,7 +43,9 @@ defmodule ExBot.Board do
   end
 
   def toggle(board, name, state) do
-    d = board |> locate(:gpio, name)
+    d = board
+    |> locate(:gpio, name)
+    |> IO.inspect
     d.device |> Gpio.toggle(state)
     board
   end
@@ -59,7 +61,6 @@ defmodule ExBot.Board do
 
   defp locate(board, :gpio, name) do
     board.gpios
-    |> IO.inspect
     |> Enum.filter(&(&1[:config][:name] == name))
     |> List.first
   end

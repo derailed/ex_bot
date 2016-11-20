@@ -7,13 +7,16 @@ defmodule ExBot.Devices.LCD do
 
   def display(pid, text, delay \\ 2_000) do
      lines = String.split(text, "\n")
-     x = 0
-     for l <- lines do
-        pid |> write(x, 0, l |> String.to_char_list)
-        x = x+1
-      end
+     display_ln(pid, lines)
      :timer.sleep(delay)
      clear(pid)
+  end
+
+  defp displayln(pid, lines), do: _displayln(pid, lines, 0)
+  defp _displayln(pid, [], _x)
+  defp _displayln(pid, [ h | t ], x) do
+    pid |> write(x, 0, h |> String.to_char_list)
+    _displayln(pid, t, x+1)
   end
 
   def init(pid) do

@@ -5,25 +5,16 @@ defmodule ExBot.Devices.LCD do
     I2c.start_link(device, ic2_address)
   end
 
-  def display(pid, text) do
-     write(pid, 0, 0, text)
-     :timer.sleep(2_000)
+  def display(pid, text, delay \\ 2_000) do
+     lines = String.split(text, "\n")
+     x = 0
+     for l <- lines do
+        pid |> write(x, 0, l |> String.to_char_list)
+        x = x+1
+      end
+     :timer.sleep(delay)
      clear(pid)
   end
-
-  # def sample do
-  #   case connect("i2c-1", 0x27) do
-  #     {:ok, pid}    -> _sample(pid)
-  #     {:error, err} -> IO.puts "Crap! #{err}"
-  #   end
-  # end
-  # defp _sample(pid) do
-  #   init(pid)
-  #   write(pid, 0, 0, 'Alert!!')
-  #   write(pid, 0, 1, 'Laser Activated')
-  #   :timer.sleep(2_000)
-  #   clear(pid)
-  # end
 
   def init(pid) do
     send_command(pid, 0x33)

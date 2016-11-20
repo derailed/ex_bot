@@ -13,7 +13,7 @@ defmodule ExBot.Devices.LCD do
   end
 
   defp displayln(pid, lines), do: _displayln(pid, lines, 0)
-  defp _displayln(_pid, [], _x),
+  defp _displayln(_pid, [], _x)
   defp _displayln(pid, [ h | t ], x) do
     pid |> write(x, 0, h |> String.to_char_list)
     _displayln(pid, t, x+1)

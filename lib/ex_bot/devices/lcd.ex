@@ -7,7 +7,7 @@ defmodule ExBot.Devices.LCD do
 
   def display(pid, text, delay \\ 2_000) do
      lines = String.split(text, "\n")
-     display_ln(pid, lines)
+     displayln(pid, lines)
      :timer.sleep(delay)
      clear(pid)
   end

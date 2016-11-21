@@ -7,17 +7,19 @@ defmodule ExBot.Devices.LCD do
 
   def display(pid, text, delay \\ 1_000) do
      clear(pid)
-     lines = String.split(text, "\n")
-     displayln(pid, lines)
+     displayln(pid, text)
      :timer.sleep(delay)
      clear(pid)
   end
 
-  defp displayln(pid, lines), do: _displayln(pid, lines, 0)
-  defp _displayln(pid, [], _x), do: pid
-  defp _displayln(pid, [ h | t ], x) do
+  defp displayln(pid, text) do
+    lines = String.split(text, "\n")
+    displayln(pid, lines, 0)
+  end
+  defp displayln(pid, [], _x), do: pid
+  defp displayln(pid, [ h | t ], x) do
     pid |> write(x, 0, h |> String.to_char_list)
-    _displayln(pid, t, x+1)
+    displayln(pid, t, x+1)
   end
 
   def init(pid) do

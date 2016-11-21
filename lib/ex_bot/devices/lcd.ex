@@ -5,7 +5,8 @@ defmodule ExBot.Devices.LCD do
     I2c.start_link(device, ic2_address)
   end
 
-  def display(pid, text, delay \\ 2_000) do
+  def display(pid, text, delay \\ 1_000) do
+     clear(pid)
      lines = String.split(text, "\n")
      displayln(pid, lines)
      :timer.sleep(delay)
